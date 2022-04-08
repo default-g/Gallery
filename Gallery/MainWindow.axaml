@@ -1,0 +1,31 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TreeDataGridDemo.MainWindow"
+        Title="TreeDataGridDemo">
+  <TabControl Name="tabs">
+    <TabItem Header="Files">
+      <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Margin="0 4">
+          <ComboBox Items="{Binding Files.Drives}"
+                    SelectedItem="{Binding Files.SelectedDrive}"
+                    DockPanel.Dock="Left"/>
+          <TextBox Text="{Binding Files.SelectedPath, Mode=OneWay}"
+                   Margin="4 0 0 0"
+                   VerticalContentAlignment="Center"
+                   KeyDown="SelectedPath_KeyDown"/>
+        </DockPanel>
+        <TextBlock Classes="realized-count" DockPanel.Dock="Bottom"/>
+        <TreeDataGrid Name="fileViewer" Source="{Binding Files.Source}">
+          <TreeDataGrid.Styles>
+            <Style Selector="TreeDataGrid TreeDataGridRow:nth-child(2n)">
+              <Setter Property="Background"  Value="#fff8f8f8"/>
+            </Style>
+          </TreeDataGrid.Styles>
+        </TreeDataGrid>
+      </DockPanel>
+    </TabItem>
+  </TabControl>
+</Window>
