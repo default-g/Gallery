@@ -38,7 +38,9 @@
 			</Grid.ColumnDefinitions>
 			<Button Content="Prev" HorizontalContentAlignment="Left" IsVisible="{Binding Files.AreButtonsActive}" Click="PreviousItem"></Button>
 			<Viewbox Grid.Column="1" Stretch="Uniform" Width="600" Height="600">
-				<Image Name="ViewingImage" Source="{Binding Files.ViewableImage}"></Image>
+				
+				<Image ToolTip.Tip="{Binding Files.SelectedPath}" Name="ViewingImage" Source="{Binding Files.ViewableImage}">
+				</Image>
 			</Viewbox>
 			<Button Grid.Column="2" Content="Next" HorizontalAlignment="Right" IsVisible="{Binding Files.AreButtonsActive}" Click="NextItem"></Button>
 		</Grid>

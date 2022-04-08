@@ -222,9 +222,10 @@ namespace TreeDataGridDemo.ViewModels
                 System.Diagnostics.Trace.WriteLine($"Deselected '{i?.Path}'");
             foreach (var i in e.SelectedItems)
                 System.Diagnostics.Trace.WriteLine($"Selected '{i?.Path}'");
-            FileInfo fileInfo = new FileInfo(selectedPath);
+           
             try
             {
+                FileInfo fileInfo = new FileInfo(selectedPath);
                 using (FileStream fs = fileInfo.OpenRead())
                 {
                     try
