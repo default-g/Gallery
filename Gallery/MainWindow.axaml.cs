@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
@@ -6,6 +7,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using TreeDataGridDemo.Models;
@@ -22,7 +24,7 @@ namespace TreeDataGridDemo
             InitializeComponent();
            
             DataContext = new MainWindowViewModel();
-
+    
             Activated += MainWindow_Activated;
         }
 
@@ -42,6 +44,7 @@ namespace TreeDataGridDemo
             {
                 var vm = (MainWindowViewModel)DataContext!;
                 vm.Files.SelectedPath = ((TextBox)sender!).Text;
+
             }
         }
 

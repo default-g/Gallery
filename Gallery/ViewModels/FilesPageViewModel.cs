@@ -25,6 +25,7 @@ namespace TreeDataGridDemo.ViewModels
         private string _selectedDrive;
         private string? _selectedPath;
         private FolderIconConverter _folderIconConverter;
+        Bitmap? _viewableImage = null;
 
         public FilesPageViewModel()
         {
@@ -103,7 +104,16 @@ namespace TreeDataGridDemo.ViewModels
         public string? SelectedPath
         {
             get => _selectedPath;
-            set => SetSelectedPath(value);
+            set {
+                    SetSelectedPath(value);
+                   
+            }
+        }
+
+        public Bitmap? ViewableImage
+        {
+            get => _viewableImage;
+            set => this.RaiseAndSetIfChanged(ref _viewableImage, value);
         }
 
         public HierarchicalTreeDataGridSource<FileTreeNodeModel> Source { get; }
@@ -189,8 +199,10 @@ namespace TreeDataGridDemo.ViewModels
                     var i = node.Children.FindIndex(x => string.Equals(x.Name, component, StringComparison.OrdinalIgnoreCase));
                     node = i >= 0 ? node.Children[i] : null;
                     index = i >= 0 ? index.Append(i) : default;
+                   
                 }
             }
+            
 
             Source.RowSelection!.SelectedIndex = index;
         }
@@ -204,6 +216,18 @@ namespace TreeDataGridDemo.ViewModels
                 System.Diagnostics.Trace.WriteLine($"Deselected '{i?.Path}'");
             foreach (var i in e.SelectedItems)
                 System.Diagnostics.Trace.WriteLine($"Selected '{i?.Path}'");
+            FileInfo fileInfo = new FileInfo(selectedPath);
+            using (FileStream fs = fileInfo.OpenRead())
+            {
+                try
+                {
+                    this.ViewableImage = Bitmap.DecodeToWidth(fs, 500);
+                }
+                catch (Exception ex)
+                {
+                    this.ViewableImage = null;
+                }
+            }
         }
 
         private class FolderIconConverter : IMultiValueConverter
