@@ -214,6 +214,8 @@ namespace TreeDataGridDemo.ViewModels
         private void SelectionChanged(object? sender, TreeSelectionModelSelectionChangedEventArgs<FileTreeNodeModel> e)
         {
             var selectedPath = Source.RowSelection?.SelectedItem?.Path;
+
+           
             this.RaiseAndSetIfChanged(ref _selectedPath, selectedPath, nameof(SelectedPath));
             
             foreach (var i in e.DeselectedItems)
@@ -228,7 +230,15 @@ namespace TreeDataGridDemo.ViewModels
                     try
                     {
                         this.ViewableImage = Bitmap.DecodeToWidth(fs, 500);
-                        AreButtonsActive = true;
+                        string mypath = selectedPath.Substring(0, selectedPath.LastIndexOf('\\'));
+                        string[] files = Directory.GetFiles(mypath);
+                        var jpgs = Array.FindAll(files, (fileName) => fileName.Contains(".jpg"));
+                        if (jpgs.Length > 1)
+                        {
+                            AreButtonsActive = true;
+                        }
+
+
                     }
                     catch (Exception ex)
                     {

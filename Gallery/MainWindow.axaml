@@ -18,6 +18,7 @@
           <TextBox Text="{Binding Files.SelectedPath, Mode=OneWay}"
                    Margin="4 0 0 0"
                    VerticalContentAlignment="Center"
+				   IsReadOnly="True"
                    KeyDown="SelectedPath_KeyDown"/>
         </DockPanel>
         <TextBlock Classes="realized-count" DockPanel.Dock="Bottom"/>
