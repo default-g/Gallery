@@ -5,8 +5,11 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TreeDataGridDemo.MainWindow"
         Title="TreeDataGridDemo">
-  <TabControl Name="tabs">
-    <TabItem Header="Files">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"></ColumnDefinition>
+			<ColumnDefinition Width="*"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
       <DockPanel>
         <DockPanel DockPanel.Dock="Top" Margin="0 4">
           <ComboBox Items="{Binding Files.Drives}"
@@ -26,6 +29,6 @@
           </TreeDataGrid.Styles>
         </TreeDataGrid>
       </DockPanel>
-    </TabItem>
-  </TabControl>
+	</Grid>
+  
 </Window>
