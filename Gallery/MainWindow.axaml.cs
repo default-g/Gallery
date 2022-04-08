@@ -4,6 +4,7 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Input.Raw;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
@@ -24,7 +25,6 @@ namespace TreeDataGridDemo
             InitializeComponent();
            
             DataContext = new MainWindowViewModel();
-    
             Activated += MainWindow_Activated;
         }
 
@@ -48,6 +48,22 @@ namespace TreeDataGridDemo
             }
         }
 
-     
+        private void NextItem(object? sender, RoutedEventArgs e)
+        {
+            var keyboard = KeyboardDevice.Instance;
+            var inputManager = InputManager.Instance;
+            this.FindControl<TreeDataGrid>("fileViewer").Focus();
+            inputManager.ProcessInput(new RawKeyEventArgs(keyboard, (ulong)DateTime.Now.Ticks, this, RawKeyEventType.KeyDown, Key.Down, RawInputModifiers.None));
+        }
+
+        private void PreviousItem(object? sender, RoutedEventArgs e)
+        {
+            var keyboard = KeyboardDevice.Instance;
+            var inputManager = InputManager.Instance;
+            this.FindControl<TreeDataGrid>("fileViewer").Focus();
+            inputManager.ProcessInput(new RawKeyEventArgs(keyboard, (ulong)DateTime.Now.Ticks, this, RawKeyEventType.KeyDown, Key.Up, RawInputModifiers.None));
+        }
+            
+
     }
 }

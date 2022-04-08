@@ -26,6 +26,13 @@ namespace TreeDataGridDemo.ViewModels
         private string? _selectedPath;
         private FolderIconConverter _folderIconConverter;
         Bitmap? _viewableImage = null;
+        bool _areButtonsActive = false;
+
+        bool AreButtonsActive
+        {
+            get => _areButtonsActive;
+            set => this.RaiseAndSetIfChanged(ref _areButtonsActive, value);
+        }
 
         public FilesPageViewModel()
         {
@@ -104,10 +111,7 @@ namespace TreeDataGridDemo.ViewModels
         public string? SelectedPath
         {
             get => _selectedPath;
-            set {
-                    SetSelectedPath(value);
-                   
-            }
+            set => SetSelectedPath(value);
         }
 
         public Bitmap? ViewableImage
@@ -217,16 +221,26 @@ namespace TreeDataGridDemo.ViewModels
             foreach (var i in e.SelectedItems)
                 System.Diagnostics.Trace.WriteLine($"Selected '{i?.Path}'");
             FileInfo fileInfo = new FileInfo(selectedPath);
-            using (FileStream fs = fileInfo.OpenRead())
+            try
             {
-                try
+                using (FileStream fs = fileInfo.OpenRead())
                 {
-                    this.ViewableImage = Bitmap.DecodeToWidth(fs, 500);
+                    try
+                    {
+                        this.ViewableImage = Bitmap.DecodeToWidth(fs, 500);
+                        AreButtonsActive = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        this.ViewableImage = null;
+                        AreButtonsActive = false;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    this.ViewableImage = null;
-                }
+            }
+            catch
+            {
+                this.ViewableImage = null;
+                AreButtonsActive = false;
             }
         }
 

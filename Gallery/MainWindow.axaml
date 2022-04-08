@@ -21,7 +21,7 @@
                    KeyDown="SelectedPath_KeyDown"/>
         </DockPanel>
         <TextBlock Classes="realized-count" DockPanel.Dock="Bottom"/>
-        <TreeDataGrid Name="fileViewer" Source="{Binding Files.Source}">
+        <TreeDataGrid Name="fileViewer" Source="{Binding Files.Source}" >
           <TreeDataGrid.Styles>
             <Style Selector="TreeDataGrid TreeDataGridRow:nth-child(2n)">
               <Setter Property="Background"  Value="#fff8f8f8"/>
@@ -35,11 +35,11 @@
 				<ColumnDefinition Width="*"></ColumnDefinition>
 				<ColumnDefinition Width="*"></ColumnDefinition>
 			</Grid.ColumnDefinitions>
-			<Button Content="Prev" HorizontalContentAlignment="Left"></Button>
+			<Button Content="Prev" HorizontalContentAlignment="Left" IsVisible="{Binding Files.AreButtonsActive}" Click="PreviousItem"></Button>
 			<Viewbox Grid.Column="1" Stretch="Uniform" Width="600" Height="600">
 				<Image Name="ViewingImage" Source="{Binding Files.ViewableImage}"></Image>
 			</Viewbox>
-			<Button Grid.Column="2" Content="Next" HorizontalAlignment="Right"></Button>
+			<Button Grid.Column="2" Content="Next" HorizontalAlignment="Right" IsVisible="{Binding Files.AreButtonsActive}" Click="NextItem"></Button>
 		</Grid>
 	</Grid>
   
