@@ -77,7 +77,7 @@ namespace TreeDataGridDemo.Models
                 throw new NotSupportedException();
             }
 
-            var options = new EnumerationOptions { IgnoreInaccessible = true };
+            var options = new EnumerationOptions { IgnoreInaccessible = true};
             var result = new ObservableCollection<FileTreeNodeModel>();
 
             foreach (var d in Directory.EnumerateDirectories(Path, "*", options))
@@ -85,7 +85,7 @@ namespace TreeDataGridDemo.Models
                 result.Add(new FileTreeNodeModel(d, true));
             }
 
-            foreach (var f in Directory.EnumerateFiles(Path, "*", options))
+            foreach (var f in Directory.EnumerateFiles(Path, "*.jpg", options))
             {
                 result.Add(new FileTreeNodeModel(f, false));
             }

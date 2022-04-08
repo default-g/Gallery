@@ -108,15 +108,6 @@ namespace TreeDataGridDemo.ViewModels
 
         public HierarchicalTreeDataGridSource<FileTreeNodeModel> Source { get; }
 
-        private IControl FileCheckTemplate(FileTreeNodeModel node, INameScope ns)
-        {
-            return new CheckBox
-            {
-                MinWidth = 0,
-                [!CheckBox.IsCheckedProperty] = new Binding(nameof(FileTreeNodeModel.IsChecked)),
-            };
-        }
-
         private IControl FileNameTemplate(FileTreeNodeModel node, INameScope ns)
         {
             return new StackPanel
